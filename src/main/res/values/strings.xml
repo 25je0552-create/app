@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Qkart</string>
+    <string name="tap_order_enjoy">Tap, Order, Enjoy</string>
+    <string name="next">Next</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
