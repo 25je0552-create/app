@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/username"
         android:layout_width="325dp"
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/useremail"
         android:layout_width="325dp"
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
@@ -77,12 +77,12 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintEnd_toEndOf="@+id/username"
+        app:layout_constraintStart_toStartOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/userpassword"
         android:layout_width="325dp"
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
@@ -91,9 +91,9 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress2"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
+        app:layout_constraintEnd_toEndOf="@+id/useremail"
+        app:layout_constraintStart_toStartOf="@+id/useremail"
+        app:layout_constraintTop_toBottomOf="@+id/useremail" />
 
     <TextView
         android:id="@+id/textView16"
@@ -103,9 +103,9 @@
         android:fontFamily="@font/yeonsung_regular"
         android:text="Or"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+        app:layout_constraintEnd_toEndOf="@+id/userpassword"
+        app:layout_constraintStart_toStartOf="@+id/userpassword"
+        app:layout_constraintTop_toBottomOf="@+id/userpassword" />
 
     <TextView
         android:id="@+id/textView17"
@@ -119,7 +119,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
+        android:id="@+id/googlebutton"
         android:layout_width="150dp"
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
@@ -134,7 +134,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button4"
+        android:id="@+id/createAccountButton"
         android:layout_width="150dp"
         android:layout_height="57dp"
         android:layout_marginTop="10dp"
@@ -142,10 +142,10 @@
         android:fontFamily="@font/yeonsung_regular"
         android:text="Create Account"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="@+id/googlebutton"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintStart_toStartOf="@+id/googlebutton"
+        app:layout_constraintTop_toBottomOf="@+id/googlebutton" />
 
     <TextView
         android:id="@+id/alreadyhavebutton"
@@ -156,22 +156,8 @@
         android:text="Already Have An Account? "
         android:textColor="@color/textColor"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/yeonsung_regular"
-        android:text="Admin SignUp!"
-        android:textColor="@color/textColor"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/alreadyhavebutton"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="@+id/alreadyhavebutton"
-        app:layout_constraintTop_toBottomOf="@+id/alreadyhavebutton" />
+        app:layout_constraintEnd_toEndOf="@+id/createAccountButton"
+        app:layout_constraintStart_toStartOf="@+id/createAccountButton"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

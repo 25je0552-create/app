@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "973335516454",
+    "firebase_url": "https://qkart-5a382-default-rtdb.firebaseio.com",
+    "project_id": "qkart-5a382",
+    "storage_bucket": "qkart-5a382.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973335516454:android:1a386e1d001c714e6b1de7",
+        "android_client_info": {
+          "package_name": "com.example.qkart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973335516454-87gah9erbahske6enu89a7bol1mm0pdt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.qkart",
+            "certificate_hash": "646b9e047e369ce848552e8d2d4d9e65446a2552"
+          }
+        },
+        {
+          "client_id": "973335516454-k5j79iugcc6fkddlduppabpseep6knu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8EKMRBEj1hFMtt7IJOCsx66EYFNdiONc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973335516454-k5j79iugcc6fkddlduppabpseep6knu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

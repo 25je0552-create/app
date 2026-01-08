@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminLoginActivity">
+    <ImageView
+        android:id="@+id/imageView31"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/yeonsung_regular"
+        android:text="QKart"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView31"
+        app:layout_constraintStart_toStartOf="@+id/imageView31"
+        app:layout_constraintTop_toBottomOf="@+id/imageView31" />
+
+    <TextView
+        android:id="@+id/textView61"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/yeonsung_regular"
+        android:text=" Queue Less Canteen Pre Order App"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView51"
+        app:layout_constraintStart_toStartOf="@+id/textView51"
+        app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="   Login To Your\n Admin Account"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView61"
+        app:layout_constraintStart_toStartOf="@+id/textView61"
+        app:layout_constraintTop_toBottomOf="@+id/textView61" />
+
+    <EditText
+        android:id="@+id/ADMINEMAILADDRESS"
+        android:layout_width="325dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/mail_02"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="Email or Phone Number"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/AdminPASSWORDLOGIN"
+        android:layout_width="325dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/lock_01"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/ADMINEMAILADDRESS"
+        app:layout_constraintStart_toStartOf="@+id/ADMINEMAILADDRESS"
+        app:layout_constraintTop_toBottomOf="@+id/ADMINEMAILADDRESS" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/yeonsung_regular"
+        android:text="Or"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/AdminPASSWORDLOGIN"
+        app:layout_constraintStart_toStartOf="@+id/AdminPASSWORDLOGIN"
+        app:layout_constraintTop_toBottomOf="@+id/AdminPASSWORDLOGIN" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/yeonsung_regular"
+        android:text="Continue With"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView9"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/adminLogingooglebutton"
+        android:layout_width="150dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/whitebutton"
+        android:drawableLeft="@drawable/google_icon_2"
+        android:fontFamily="@font/lato_bold"
+        android:paddingStart="15dp"
+        android:text="Google"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView10"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/adminloginaccountbutton"
+        android:layout_width="150dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/greenbuttongradient"
+        android:fontFamily="@font/lato_bold"
+        android:text="Login"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/adminLogingooglebutton"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/adminLogingooglebutton"
+        app:layout_constraintTop_toBottomOf="@+id/adminLogingooglebutton" />
+
+    <TextView
+        android:id="@+id/admindonotbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/yeonsung_regular"
+        android:text="Don't Have Account?"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/adminloginaccountbutton"
+        app:layout_constraintStart_toStartOf="@+id/adminloginaccountbutton"
+        app:layout_constraintTop_toBottomOf="@+id/adminloginaccountbutton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

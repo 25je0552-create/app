@@ -19,6 +19,10 @@ class StartActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+        binding.adminText.setOnClickListener {
+            val intent = Intent(this, AdminSplashScreen::class.java)
+            startActivity(intent)
+        }
     }
 }
 
