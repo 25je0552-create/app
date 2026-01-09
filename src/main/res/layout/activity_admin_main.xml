@@ -10,51 +10,6 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView9"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/cardgreen"
-        android:outlineSpotShadowColor="@color/textColor"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView12">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/cardgreen">
-
-            <ImageView
-                android:id="@+id/imageView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icon" />
-
-            <TextView
-                android:id="@+id/textView42"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/yeonsung_regular"
-                android:text="Order Dispatch"
-                android:textColor="#FF9800"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/imageView18"
-                app:layout_constraintStart_toStartOf="@+id/imageView18"
-                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/cardView12"
         android:layout_width="150dp"
         android:layout_height="100dp"
@@ -64,12 +19,12 @@
         android:outlineSpotShadowColor="@color/textColor"
         app:cardCornerRadius="15dp"
         app:cardElevation="15dp"
-        app:layout_constraintEnd_toStartOf="@+id/cardView11"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/cardView13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/cardgreen">
@@ -194,7 +149,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView31"
+                android:id="@+id/pendingordertextview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -210,9 +165,9 @@
                 android:id="@+id/imageView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/textView31"
-                app:layout_constraintEnd_toEndOf="@+id/textView31"
-                app:layout_constraintStart_toStartOf="@+id/textView31"
+                app:layout_constraintBottom_toTopOf="@+id/pendingordertextview"
+                app:layout_constraintEnd_toEndOf="@+id/pendingordertextview"
+                app:layout_constraintStart_toStartOf="@+id/pendingordertextview"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/attention" />
 
@@ -226,7 +181,7 @@
                 android:text="Completed \n   Orders"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/textView31"
+                app:layout_constraintStart_toEndOf="@+id/pendingordertextview"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -272,10 +227,10 @@
                 android:text="30"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView31"
+                app:layout_constraintEnd_toEndOf="@+id/pendingordertextview"
                 app:layout_constraintHorizontal_bias="0.469"
-                app:layout_constraintStart_toStartOf="@+id/textView31"
-                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                app:layout_constraintStart_toStartOf="@+id/pendingordertextview"
+                app:layout_constraintTop_toBottomOf="@+id/pendingordertextview" />
 
             <TextView
                 android:id="@+id/textView36"
@@ -369,6 +324,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView7" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CreateUserNew"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/cardgreen">
@@ -404,13 +360,12 @@
         android:layout_width="150dp"
         android:layout_height="100dp"
 
-        android:layout_marginStart="224dp"
-
         android:layout_marginTop="60dp"
         android:background="@drawable/cardgreen"
         android:outlineSpotShadowColor="@color/textColor"
         app:cardCornerRadius="15dp"
         app:cardElevation="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView13">
 

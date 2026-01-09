@@ -24,6 +24,18 @@ class AdminMainActivity : AppCompatActivity() {
             val intent = Intent(this, AllItemActivity::class.java)
             startActivity(intent)
         }
+        binding.Profile.setOnClickListener {
+            val intent = Intent(this, AdminProfileActivity::class.java)
+            startActivity(intent)
+        }
+        binding.CreateUserNew.setOnClickListener {
+            val intent = Intent(this, CreateUserActivity::class.java)
+            startActivity(intent)
+        }
+        binding.pendingordertextview.setOnClickListener {
+            val intent = Intent(this, PendingOrdersActivity::class.java)
+            startActivity(intent)
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

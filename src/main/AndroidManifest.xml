@@ -8,6 +8,15 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Qkart">
         <activity
+            android:name=".PendingOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".AllItemActivity"
             android:exported="false" />
         <activity
