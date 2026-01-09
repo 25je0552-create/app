@@ -15,8 +15,13 @@ class AdminMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         binding.AddMenu.setOnClickListener {
             val intent = Intent(this, AddItemActivity::class.java)
+            startActivity(intent)
+        }
+        binding.AllMenu.setOnClickListener {
+            val intent = Intent(this, AllItemActivity::class.java)
             startActivity(intent)
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

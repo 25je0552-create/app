@@ -16,6 +16,10 @@ class AdminLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(binding.root)
+        binding.adminloginaccountbutton.setOnClickListener {
+            val intent = Intent(this, AdminMainActivity::class.java)
+            startActivity(intent)
+        }
         binding.admindonotbutton.setOnClickListener {
             val intent = Intent(this, AdminSignUpActivity::class.java)
             startActivity(intent)

@@ -203,7 +203,7 @@
             android:background="@android:color/transparent"
             android:fontFamily="@font/lato_bold"
             android:paddingLeft="30dp"
-            android:text="$35"
+            android:text="Rs.400"
             android:textColor="@color/textColor"
             android:textSize="18sp" />
 

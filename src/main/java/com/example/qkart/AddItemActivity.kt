@@ -36,7 +36,7 @@ class AddItemActivity : AppCompatActivity() {
         }
 
         // Back arrow
-        binding.imageView12.setOnClickListener {
+        binding.AdminBackButtonadditem.setOnClickListener {
             finish()
         }
 

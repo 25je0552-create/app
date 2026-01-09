@@ -6,16 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:elevation="15dp"
     tools:context=".AddItemActivity">
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-       android:scrollbars="none"
+        android:elevation="40dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,8 +45,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView47" />
 
-            <ImageView
-                android:id="@+id/imageView12"
+            <ImageButton
+                android:id="@+id/AdminBackButtonadditem"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="8dp"
@@ -54,7 +58,7 @@
                 app:srcCompat="@drawable/arrow_left_icon" />
 
             <TextView
-                android:id="@+id/textView39"
+                android:id="@+id/Additem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -63,7 +67,7 @@
                 android:textColor="@color/black"
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView12"
+                app:layout_constraintStart_toEndOf="@+id/AdminBackButtonadditem"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
@@ -83,7 +87,7 @@
                 android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+                app:layout_constraintTop_toBottomOf="@+id/Additem" />
 
             <TextView
                 android:id="@+id/Selectimage"
@@ -97,29 +101,48 @@
                 android:elevation="15dp"
                 android:fontFamily="@font/yeonsung_regular"
                 android:gravity="center_vertical"
-                android:text="Select Image"
                 android:paddingLeft="15dp"
                 android:paddingRight="25dp"
+                android:text="Select Image"
                 android:textSize="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView48" />
-             <androidx.cardview.widget.CardView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="24dp"
-                 app:cardCornerRadius="15dp"
-                 app:layout_constraintEnd_toEndOf="@id/Selectimage"
-                 app:layout_constraintStart_toStartOf="@id/Selectimage"
-                 app:layout_constraintTop_toBottomOf="@id/Selectimage">
 
-                 <ImageView
-                     android:id="@+id/selectedimage"
-                     android:layout_width="175dp"
-                     android:layout_height="110dp"
-                     android:scaleType="fitCenter"
-                     android:src="@drawable/addimage" />
-             </androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button4"
+                android:layout_width="200dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/greenbuttongradient"
+                android:elevation="40dp"
+                android:fontFamily="@font/yeonsung_regular"
+                android:text="Add Item"
+                android:textColor="@color/text_shadow_white"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView6" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="@id/Selectimage"
+                app:layout_constraintStart_toStartOf="@id/Selectimage"
+                app:layout_constraintTop_toBottomOf="@id/Selectimage">
+
+                <ImageView
+                    android:id="@+id/selectedimage"
+                    android:layout_width="175dp"
+                    android:layout_height="110dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/addimage" />
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

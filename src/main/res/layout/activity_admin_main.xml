@@ -15,13 +15,13 @@
         android:layout_height="100dp"
 
         android:layout_marginStart="37dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/cardgreen"
         android:outlineSpotShadowColor="@color/textColor"
         app:cardCornerRadius="15dp"
         app:cardElevation="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView12">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -116,6 +116,7 @@
         app:layout_constraintTop_toTopOf="@+id/cardView5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/AllMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/cardgreen">
@@ -405,13 +406,13 @@
 
         android:layout_marginStart="224dp"
 
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/cardgreen"
         android:outlineSpotShadowColor="@color/textColor"
         app:cardCornerRadius="15dp"
         app:cardElevation="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView13">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
