@@ -7,41 +7,21 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.qkart.R
 import com.example.qkart.adaptar.MenuAdapter
 import com.example.qkart.databinding.FragmentSearchBinding
+import com.example.qkart.model.FoodModel
+import com.google.firebase.database.*
 
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var adapter: MenuAdapter
 
-    // ORIGINAL DATA
-    private val originalMenuFoodname = listOf(
-        "Veg Burger",
-        "Maggi",
-        "Potato Patties",
-        "Sandwich"
-    )
+    // 🔹 Full list from Firebase
+    private val fullMenuList = mutableListOf<FoodModel>()
 
-    private val originalMenuPrice = listOf(
-        "Rs.40",
-        "Rs.25",
-        "Rs.20",
-        "Rs.35"
-    )
-
-    private val originalMenuImage = listOf(
-        R.drawable.vegburger,
-        R.drawable.maggi,
-        R.drawable.potatopatties,
-        R.drawable.sandwitch
-    )
-
-    // FILTERED DATA
-    private val filteredMenuFoodname = mutableListOf<String>()
-    private val filteredMenuPrice = mutableListOf<String>()
-    private val filteredMenuImage = mutableListOf<Int>()
+    // 🔹 Filtered list (shown in RecyclerView)
+    private val filteredMenuList = mutableListOf<FoodModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,71 +31,76 @@ class SearchFragment : Fragment() {
 
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        adapter = MenuAdapter(
-            filteredMenuFoodname,
-            filteredMenuPrice,
-            filteredMenuImage
-        )
+        // Adapter uses FILTERED list
+        adapter = MenuAdapter(filteredMenuList)
 
         binding.menurecyclerview.layoutManager =
             LinearLayoutManager(requireContext())
         binding.menurecyclerview.adapter = adapter
 
         setupSearchView()
-        showAllMenu()
+        fetchMenuFromFirebase()
 
         return binding.root
     }
 
-    // SHOW ALL ITEMS
-    private fun showAllMenu() {
-        filteredMenuFoodname.clear()
-        filteredMenuPrice.clear()
-        filteredMenuImage.clear()
+    // 🔥 FETCH DATA FROM FIREBASE
+    private fun fetchMenuFromFirebase() {
+        val database = FirebaseDatabase.getInstance().reference
 
-        filteredMenuFoodname.addAll(originalMenuFoodname)
-        filteredMenuPrice.addAll(originalMenuPrice)
-        filteredMenuImage.addAll(originalMenuImage)
+        database.child("foods")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    fullMenuList.clear()
+                    filteredMenuList.clear()
 
-        adapter.notifyDataSetChanged()
+                    for (itemSnapshot in snapshot.children) {
+                        val food = itemSnapshot.getValue(FoodModel::class.java)
+                        if (food != null) {
+                            fullMenuList.add(food)
+                        }
+                    }
+
+                    // Show all initially
+                    filteredMenuList.addAll(fullMenuList)
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
     }
 
-    // SEARCH VIEW SETUP
+    // 🔍 SEARCH VIEW
     private fun setupSearchView() {
         binding.searchView.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
 
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    filterMenuItem(query)
+                    filterMenu(query)
                     return true
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    filterMenuItem(newText)
+                    filterMenu(newText)
                     return true
                 }
             }
         )
     }
 
-    // FILTER LOGIC (NULL SAFE)
-    private fun filterMenuItem(query: String?) {
+    // 🔎 FILTER LOGIC
+    private fun filterMenu(query: String?) {
         val searchText = query?.trim()?.lowercase() ?: ""
 
-        filteredMenuFoodname.clear()
-        filteredMenuPrice.clear()
-        filteredMenuImage.clear()
+        filteredMenuList.clear()
 
         if (searchText.isEmpty()) {
-            showAllMenu()
-            return
-        }
-
-        originalMenuFoodname.forEachIndexed { index, foodName ->
-            if (foodName.lowercase().contains(searchText)) {
-                filteredMenuFoodname.add(foodName)
-                filteredMenuPrice.add(originalMenuPrice[index])
-                filteredMenuImage.add(originalMenuImage[index])
+            filteredMenuList.addAll(fullMenuList)
+        } else {
+            for (item in fullMenuList) {
+                if (item.foodName.lowercase().contains(searchText)) {
+                    filteredMenuList.add(item)
+                }
             }
         }
 

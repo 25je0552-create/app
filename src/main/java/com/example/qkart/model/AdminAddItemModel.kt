@@ -1,8 +1,11 @@
 package com.example.qkart.model
 
-data class AdminFoodModel(
+data class AdminAddItemModel(
+
     val foodId: String = "",
     val foodName: String = "",
     val foodPrice: String = "",
-    var quantity: Int = 10
+    val imageName: String = "" // drawable name (e.g. "burger")
 )
+
+

@@ -1,67 +1,50 @@
 package com.example.qkart.adaptar
 
-import android.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.qkart.databinding.CartItemBinding
+import com.example.qkart.model.CartItem
+import com.example.qkart.utils.CartManager
 
-class CartAddaptar(private val cartItem : MutableList<String>,private val cartItemprice:MutableList<String>,private val cartImage : MutableList<Int>  ): RecyclerView.Adapter<CartAddaptar.CartViewHolder>() {
-private val itemQuantities= IntArray(cartItem.size){1}
-    override fun onCreateViewHolder( parent: ViewGroup, viewType: Int ): CartViewHolder {
-        val binding = CartItemBinding.inflate(LayoutInflater.from (parent.context),parent,false)
+class CartAddaptar(
+    private val cartList: MutableList<CartItem>
+) : RecyclerView.Adapter<CartAddaptar.CartViewHolder>() {
+
+    inner class CartViewHolder(val binding: CartItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
+        val binding =
+            CartItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CartViewHolder(binding)
     }
 
-    override fun onBindViewHolder(
-        holder: CartViewHolder,
-        position: Int
-    ) {
-        holder.bind(position)
-    }
+    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
+        val item = cartList[position]
 
-    override fun getItemCount(): Int = cartItem.size
-    inner class CartViewHolder(private val binding : CartItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int){
-            binding.apply{
-                val quantity = itemQuantities[position]
-                cartfoodname.text = cartItem[position]
-                cartprice.text = cartItemprice[position]
-                cartimage.setImageResource(cartImage[position])
-                cartitemquantity.text = quantity.toString()
-                minusbutton.setOnClickListener {
-                    decreaseQuantity(position)
-                 }
-                plusbutton.setOnClickListener {
-                    increaseQuantity(position)
-                }
-                trashbutton.setOnClickListener {
-                    val itemPosition = adapterPosition
-                    if(itemPosition != RecyclerView.NO_POSITION){
-                        deleteitem(itemPosition)
-                    }
-                }
+        holder.binding.cartfoodname.text = item.foodName
+        holder.binding.cartprice.text = item.foodPrice
+        holder.binding.cartitemquantity.text = item.quantity.toString()
+        holder.binding.cartimage.setImageResource(item.imageRes)
 
+        holder.binding.plusbutton.setOnClickListener {
+            item.quantity++
+            notifyItemChanged(position)
+        }
+
+        holder.binding.minusbutton.setOnClickListener {
+            if (item.quantity > 1) {
+                item.quantity--
+                notifyItemChanged(position)
             }
         }
-        private fun increaseQuantity(position: Int){
-            if (itemQuantities[position]<10){
-                itemQuantities[position]++
-                binding.cartitemquantity.text = itemQuantities[position].toString()
-            }
-        }
-        private fun decreaseQuantity(position: Int){
-            if (itemQuantities[position]>1){
-                itemQuantities[position]--
-                binding.cartitemquantity.text = itemQuantities[position].toString()
-            }
-        }
-        private fun deleteitem(position : Int){
-            cartItem.removeAt(position)
-            cartImage.removeAt(position)
-            cartItemprice.removeAt(position)
+
+        holder.binding.trashbutton.setOnClickListener {
+            CartManager.removeItem(position)
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position,cartItem.size)
         }
     }
+
+    override fun getItemCount(): Int = cartList.size
 }

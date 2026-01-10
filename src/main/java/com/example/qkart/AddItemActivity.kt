@@ -1,54 +1,90 @@
 package com.example.qkart
 
-import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.qkart.databinding.ActivityAddItemBinding
+import com.example.qkart.model.AdminAddItemModel
+import com.google.firebase.database.FirebaseDatabase
+import java.util.UUID
 
 class AddItemActivity : AppCompatActivity() {
 
-    // ✅ Binding declared properly
     private lateinit var binding: ActivityAddItemBinding
 
-    // ✅ Image picker declared OUTSIDE onCreate
-    private val pickImage =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
-            if (uri != null) {
-                binding.selectedimage.setImageURI(uri)
-            }
-        }
+    // 🔹 TEMP image list (local drawables)
+    private val imageList = listOf("burger", "pizza", "momos")
+    private var selectedImage = "burger" // default
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityAddItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Open gallery
+        // 🔹 TEMP image switch (tap to change)
         binding.Selectimage.setOnClickListener {
-            pickImage.launch(
-                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+            selectedImage = imageList.random()
+            val imageId = resources.getIdentifier(
+                selectedImage,
+                "drawable",
+                packageName
             )
+            binding.selectedimage.setImageResource(imageId)
         }
 
-        // Back arrow
+        binding.button4.setOnClickListener {
+            saveItem()
+        }
+
         binding.AdminBackButtonadditem.setOnClickListener {
             finish()
         }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(
-                systemBars.left,
-                systemBars.top,
-                systemBars.right,
-                systemBars.bottom
-            )
-            insets
-        }
     }
+
+    private fun saveItem() {
+        val name = binding.textView47.text.toString().trim()
+        val price = binding.textView48.text.toString().trim()
+
+        if (name.isEmpty() || price.isEmpty()) {
+            Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val foodId = UUID.randomUUID().toString()
+
+        val food = AdminAddItemModel(
+            foodId = foodId,
+            foodName = name,
+            foodPrice = price,
+            imageName = selectedImage
+        )
+
+        FirebaseDatabase.getInstance()
+            .reference
+            .child("foods")
+            .child(foodId)
+            .setValue(food)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    /*
+    🔴 FUTURE FIREBASE STORAGE CODE (DO NOT DELETE)
+
+    private fun uploadImageToFirebase(uri: Uri) {
+        val storageRef = FirebaseStorage.getInstance()
+            .reference.child("food_images/${UUID.randomUUID()}.jpg")
+
+        storageRef.putFile(uri)
+            .continueWithTask { storageRef.downloadUrl }
+            .addOnSuccessListener { url ->
+                // save url.toString() in database
+            }
+    }
+    */
 }

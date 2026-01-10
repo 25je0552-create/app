@@ -14,22 +14,14 @@ class AllItemAdapter(
     private val itemList: MutableList<AdminFoodModel>
 ) : RecyclerView.Adapter<AllItemAdapter.ItemViewHolder>() {
 
-    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val foodImage: ImageView =
-            itemView.findViewById(R.id.foodImageViewitemitem)
-        val foodName: TextView =
-            itemView.findViewById(R.id.AdminFoodName)
-        val price: TextView =
-            itemView.findViewById(R.id.textView45)
-        val quantity: TextView =
-            itemView.findViewById(R.id.textView46)
-
-        val minusBtn: ImageButton =
-            itemView.findViewById(R.id.imageButton)
-        val plusBtn: ImageButton =
-            itemView.findViewById(R.id.imageButton2)
-        val deleteBtn: ImageButton =
-            itemView.findViewById(R.id.imageButton3)
+    inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(R.id.foodImageViewitemitem)
+        val name: TextView = view.findViewById(R.id.AdminFoodName)
+        val price: TextView = view.findViewById(R.id.textView45)
+        val quantity: TextView = view.findViewById(R.id.textView46)
+        val minus: ImageButton = view.findViewById(R.id.imageButton)
+        val plus: ImageButton = view.findViewById(R.id.imageButton2)
+        val delete: ImageButton = view.findViewById(R.id.imageButton3)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -41,30 +33,25 @@ class AllItemAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = itemList[position]
 
-        holder.foodImage.setImageResource(item.imageRes)
-        holder.foodName.text = item.name
-        holder.price.text = item.price
+        holder.name.text = item.foodName
+        holder.price.text = "Rs.${item.foodPrice}"
         holder.quantity.text = item.quantity.toString()
 
-
-        holder.plusBtn.setOnClickListener {
+        holder.plus.setOnClickListener {
             item.quantity++
             notifyItemChanged(position)
         }
 
-
-        holder.minusBtn.setOnClickListener {
+        holder.minus.setOnClickListener {
             if (item.quantity > 0) {
                 item.quantity--
                 notifyItemChanged(position)
             }
         }
 
-
-        holder.deleteBtn.setOnClickListener {
+        holder.delete.setOnClickListener {
             itemList.removeAt(position)
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position, itemList.size)
         }
     }
 
