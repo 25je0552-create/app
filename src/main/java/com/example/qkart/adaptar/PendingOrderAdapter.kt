@@ -1,42 +1,20 @@
-package com.example.qkart
+package com.example.qkart.adaptar
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.qkart.databinding.PendingOrderItemBinding
+import com.example.qkart.model.OrderModel
+import com.google.firebase.database.FirebaseDatabase
 
 class PendingOrderAdapter(
-    private val orderList: MutableList<PendingOrder>
+    private val orders: MutableList<OrderModel>
 ) : RecyclerView.Adapter<PendingOrderAdapter.OrderViewHolder>() {
 
     inner class OrderViewHolder(
-        private val binding: PendingOrderItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(order: PendingOrder, position: Int) {
-            binding.customername.text = order.customerName
-            binding.quantityinput.text = order.quantity.toString()
-
-            if (order.isAccepted) {
-                binding.button6.text = "Dispatch"
-            } else {
-                binding.button6.text = "Accept"
-            }
-
-            binding.button6.setOnClickListener {
-                if (!order.isAccepted) {
-                    // Accept order
-                    order.isAccepted = true
-                    notifyItemChanged(position)
-                } else {
-
-                    orderList.removeAt(position)
-                    notifyItemRemoved(position)
-                    notifyItemRangeChanged(position, orderList.size)
-                }
-            }
-        }
-    }
+        val binding: PendingOrderItemBinding
+    ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val binding = PendingOrderItemBinding.inflate(
@@ -48,8 +26,39 @@ class PendingOrderAdapter(
     }
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
-        holder.bind(orderList[position], position)
+        val order = orders[position]
+
+        holder.binding.customername.text = order.userName
+        holder.binding.quantityinput.text = order.items.toString()
+
+        // 🔁 BUTTON VISIBILITY LOGIC
+        if (order.status == "Accepted") {
+            holder.binding.button6.visibility = View.GONE
+            holder.binding.dispatchButton.visibility = View.VISIBLE
+        } else {
+            holder.binding.button6.visibility = View.VISIBLE
+            holder.binding.dispatchButton.visibility = View.GONE
+        }
+
+        // ✅ ACCEPT BUTTON
+        holder.binding.button6.setOnClickListener {
+            val ref = FirebaseDatabase.getInstance()
+                .getReference("pendingOrders")
+                .child(order.orderId)
+
+            ref.child("status").setValue("Accepted")
+        }
+
+        // 🚚 DISPATCH BUTTON
+        holder.binding.dispatchButton.setOnClickListener {
+            val ref = FirebaseDatabase.getInstance()
+                .getReference("pendingOrders")
+                .child(order.orderId)
+
+            // remove order from pending list
+            ref.removeValue()
+        }
     }
 
-    override fun getItemCount(): Int = orderList.size
+    override fun getItemCount(): Int = orders.size
 }

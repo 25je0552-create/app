@@ -59,6 +59,7 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/nameEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -94,6 +95,7 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/addressEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -129,6 +131,7 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/phoneEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -197,15 +200,17 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/amountEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
             android:fontFamily="@font/lato_bold"
             android:paddingLeft="30dp"
-            android:text="Rs.400"
             android:textColor="@color/textColor"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:enabled="false"/>
+
 
     </LinearLayout>
 

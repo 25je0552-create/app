@@ -2,6 +2,7 @@ package com.example.qkart.adaptar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.qkart.databinding.MenuItemBinding
 import com.example.qkart.model.CartItem
@@ -33,7 +34,7 @@ class MenuAdapter(
             binding.menuFoodname.text = item.foodName
             binding.menuprice.text = "Rs. ${item.foodPrice}"
 
-            // IMAGE PART (kept for later Firebase Storage use)
+            // IMAGE PART (for later Firebase Storage use)
             // binding.menuimage.setImageResource(item.imageRes)
 
             binding.menuaddtocart.setOnClickListener {
@@ -46,6 +47,13 @@ class MenuAdapter(
                 )
 
                 CartManager.addItem(cartItem)
+
+                // ✅ TOAST CONFIRMATION
+                Toast.makeText(
+                    binding.root.context,
+                    "${item.foodName} added to cart",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
