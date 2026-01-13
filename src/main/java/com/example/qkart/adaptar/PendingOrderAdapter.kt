@@ -6,15 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.qkart.databinding.PendingOrderItemBinding
 import com.example.qkart.model.OrderModel
-import com.google.firebase.database.FirebaseDatabase
 
 class PendingOrderAdapter(
     private val orders: MutableList<OrderModel>
 ) : RecyclerView.Adapter<PendingOrderAdapter.OrderViewHolder>() {
 
-    inner class OrderViewHolder(
-        val binding: PendingOrderItemBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    inner class OrderViewHolder(val binding: PendingOrderItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val binding = PendingOrderItemBinding.inflate(
@@ -28,35 +26,23 @@ class PendingOrderAdapter(
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orders[position]
 
+        // ✅ Customer Name
         holder.binding.customername.text = order.userName
-        holder.binding.quantityinput.text = order.items.toString()
 
-        // 🔁 BUTTON VISIBILITY LOGIC
-        if (order.status == "Accepted") {
+        // ✅ Total Quantity (FIXED)
+        val totalQty = order.items.sumOf { it.quantity }
+        holder.binding.quantityinput.text = totalQty.toString()
+
+        // ✅ Accept Button
+        holder.binding.button6.setOnClickListener {
             holder.binding.button6.visibility = View.GONE
             holder.binding.dispatchButton.visibility = View.VISIBLE
-        } else {
-            holder.binding.button6.visibility = View.VISIBLE
-            holder.binding.dispatchButton.visibility = View.GONE
         }
 
-        // ✅ ACCEPT BUTTON
-        holder.binding.button6.setOnClickListener {
-            val ref = FirebaseDatabase.getInstance()
-                .getReference("pendingOrders")
-                .child(order.orderId)
-
-            ref.child("status").setValue("Accepted")
-        }
-
-        // 🚚 DISPATCH BUTTON
+        // ✅ Dispatch Button
         holder.binding.dispatchButton.setOnClickListener {
-            val ref = FirebaseDatabase.getInstance()
-                .getReference("pendingOrders")
-                .child(order.orderId)
-
-            // remove order from pending list
-            ref.removeValue()
+            orders.removeAt(position)
+            notifyItemRemoved(position)
         }
     }
 
