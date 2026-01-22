@@ -4,5 +4,5 @@ data class FoodModel(
     val foodId: String = "",
     val foodName: String = "",
     val foodPrice: String = "",
-    val imageRes: Int = 0
+    val imageUrl: String = ""
 )

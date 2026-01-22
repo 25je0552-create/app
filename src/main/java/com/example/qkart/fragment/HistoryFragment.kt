@@ -48,6 +48,6 @@ class HistoryFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null   // ✅ prevent memory leak
+        _binding = null
     }
 }

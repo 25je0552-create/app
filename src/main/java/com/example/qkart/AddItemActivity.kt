@@ -1,54 +1,92 @@
 package com.example.qkart
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qkart.databinding.ActivityAddItemBinding
 import com.example.qkart.model.AdminAddItemModel
+import com.example.qkart.utils.CloudinaryUploader
+import com.example.qkart.utils.FileUtils
 import com.google.firebase.database.FirebaseDatabase
+import java.io.File
 import java.util.UUID
 
 class AddItemActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddItemBinding
-
-    // 🔹 TEMP image list (local drawables)
-    private val imageList = listOf("burger", "pizza", "momos")
-    private var selectedImage = "burger" // default
+    private var imageUri: Uri? = null
+    private var uploadedImageUrl: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 🔹 TEMP image switch (tap to change)
-        binding.Selectimage.setOnClickListener {
-            selectedImage = imageList.random()
-            val imageId = resources.getIdentifier(
-                selectedImage,
-                "drawable",
-                packageName
-            )
-            binding.selectedimage.setImageResource(imageId)
-        }
-
-        binding.button4.setOnClickListener {
-            saveItem()
-        }
 
         binding.AdminBackButtonadditem.setOnClickListener {
             finish()
         }
+
+
+        binding.Selectimage.setOnClickListener {
+            pickImage()
+        }
+
+
+        binding.button4.setOnClickListener {
+            saveItem()
+        }
     }
 
+
+    private fun pickImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 101)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
+            imageUri = data?.data
+            binding.selectedimage.setImageURI(imageUri)
+        }
+    }
+
+
     private fun saveItem() {
+
         val name = binding.textView47.text.toString().trim()
         val price = binding.textView48.text.toString().trim()
 
-        if (name.isEmpty() || price.isEmpty()) {
-            Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show()
+        if (name.isEmpty() || price.isEmpty() || imageUri == null) {
+            Toast.makeText(this, "Fill all fields & select image", Toast.LENGTH_SHORT).show()
             return
         }
+
+        val file = FileUtils.getFileFromUri(this, imageUri!!)
+
+
+        CloudinaryUploader.uploadImage(
+            imageFile = file,
+            onSuccess = { imageUrl ->
+                uploadedImageUrl = imageUrl
+                saveToDatabase(name, price, imageUrl)
+            },
+            onError = {
+                runOnUiThread {
+                    Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
+    }
+
+
+    private fun saveToDatabase(name: String, price: String, imageUrl: String) {
 
         val foodId = UUID.randomUUID().toString()
 
@@ -56,7 +94,7 @@ class AddItemActivity : AppCompatActivity() {
             foodId = foodId,
             foodName = name,
             foodPrice = price,
-            imageName = selectedImage
+            imageUrl = imageUrl
         )
 
         FirebaseDatabase.getInstance()
@@ -65,26 +103,11 @@ class AddItemActivity : AppCompatActivity() {
             .child(foodId)
             .setValue(food)
             .addOnSuccessListener {
-                Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Item added successfully", Toast.LENGTH_SHORT).show()
                 finish()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to add item", Toast.LENGTH_SHORT).show()
             }
     }
-
-    /*
-    🔴 FUTURE FIREBASE STORAGE CODE (DO NOT DELETE)
-
-    private fun uploadImageToFirebase(uri: Uri) {
-        val storageRef = FirebaseStorage.getInstance()
-            .reference.child("food_images/${UUID.randomUUID()}.jpg")
-
-        storageRef.putFile(uri)
-            .continueWithTask { storageRef.downloadUrl }
-            .addOnSuccessListener { url ->
-                // save url.toString() in database
-            }
-    }
-    */
 }

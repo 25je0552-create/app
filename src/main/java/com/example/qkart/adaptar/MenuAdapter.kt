@@ -4,57 +4,46 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.qkart.databinding.MenuItemBinding
 import com.example.qkart.model.CartItem
 import com.example.qkart.model.FoodModel
 import com.example.qkart.utils.CartManager
 
-class MenuAdapter(
-    private val menuList: MutableList<FoodModel>
-) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
+class MenuAdapter(private val list: MutableList<FoodModel>) :
+    RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
+
+    inner class MenuViewHolder(val binding: MenuItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
-        val binding =
+        return MenuViewHolder(
             MenuItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MenuViewHolder(binding)
+        )
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
-        holder.bind(menuList[position])
-    }
+        val item = list[position]
 
-    override fun getItemCount(): Int = menuList.size
+        holder.binding.menuFoodname.text = item.foodName
+        holder.binding.menuprice.text = "Rs. ${item.foodPrice}"
 
-    inner class MenuViewHolder(
-        private val binding: MenuItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
+        Glide.with(holder.itemView)
+            .load(item.imageUrl)
+            .into(holder.binding.menuimage)
 
-        fun bind(item: FoodModel) {
-
-            binding.menuFoodname.text = item.foodName
-            binding.menuprice.text = "Rs. ${item.foodPrice}"
-
-            // IMAGE PART (for later Firebase Storage use)
-            // binding.menuimage.setImageResource(item.imageRes)
-
-            binding.menuaddtocart.setOnClickListener {
-
-                val cartItem = CartItem(
-                    foodName = item.foodName,
-                    foodPrice = item.foodPrice,
-                    imageRes = item.imageRes,
-                    quantity = 1
+        holder.binding.menuaddtocart.setOnClickListener {
+            CartManager.addItem(
+                CartItem(
+                    item.foodId,
+                    item.foodName,
+                    item.foodPrice,
+                    item.imageUrl
                 )
-
-                CartManager.addItem(cartItem)
-
-                // ✅ TOAST CONFIRMATION
-                Toast.makeText(
-                    binding.root.context,
-                    "${item.foodName} added to cart",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            )
+            Toast.makeText(holder.itemView.context, "Added to cart", Toast.LENGTH_SHORT).show()
         }
     }
+
+    override fun getItemCount() = list.size
 }

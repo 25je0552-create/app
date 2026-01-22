@@ -1,8 +1,9 @@
 package com.example.qkart.model
 
 data class CartItem(
-    val foodName: String,
-    val foodPrice: String,
-    val imageRes: Int,
+    val foodId: String = "",
+    val foodName: String = "",
+    val foodPrice: String = "",
+    val imageUrl: String = "",
     var quantity: Int = 1
 )

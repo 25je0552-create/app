@@ -58,7 +58,7 @@ class AdminProfileActivity : AppCompatActivity() {
         val phone = binding.phoneAdmininput.text.toString().trim()
         val password = binding.passwordAdmininput.text.toString().trim()
 
-        // 🔴 VALIDATION
+
         if (name.isEmpty() || address.isEmpty() || email.isEmpty()
             || phone.isEmpty() || password.isEmpty()
         ) {

@@ -26,20 +26,20 @@ class PendingOrderAdapter(
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orders[position]
 
-        // ✅ Customer Name
+
         holder.binding.customername.text = order.userName
 
-        // ✅ Total Quantity (FIXED)
+
         val totalQty = order.items.sumOf { it.quantity }
         holder.binding.quantityinput.text = totalQty.toString()
 
-        // ✅ Accept Button
+
         holder.binding.button6.setOnClickListener {
             holder.binding.button6.visibility = View.GONE
             holder.binding.dispatchButton.visibility = View.VISIBLE
         }
 
-        // ✅ Dispatch Button
+
         holder.binding.dispatchButton.setOnClickListener {
             orders.removeAt(position)
             notifyItemRemoved(position)

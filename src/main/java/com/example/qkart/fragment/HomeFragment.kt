@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val foodList = mutableListOf<FoodModel>()
-    private lateinit var adapter: MenuAdapter
+    private lateinit var menuAdapter: MenuAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +27,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        // 🔹 View Menu Button → Bottom Sheet
         binding.viewmenubutton.setOnClickListener {
             MenubottomsheetFragment()
                 .show(parentFragmentManager, "MenuBottomSheet")
@@ -38,33 +39,40 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = MenuAdapter(foodList)
+        // 🔹 RecyclerView setup
+        menuAdapter = MenuAdapter(foodList)
 
         binding.popularrecyclerview.layoutManager =
-            LinearLayoutManager(requireContext())
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        binding.popularrecyclerview.adapter = adapter
+        binding.popularrecyclerview.adapter = menuAdapter
 
+        // 🔹 Load food from Firebase
         loadFoodFromFirebase()
     }
 
     private fun loadFoodFromFirebase() {
+
         FirebaseDatabase.getInstance()
-            .reference
-            .child("foods")
+            .getReference("foods")
             .addValueEventListener(object : ValueEventListener {
+
                 override fun onDataChange(snapshot: DataSnapshot) {
                     foodList.clear()
+
                     for (data in snapshot.children) {
-                        val item = data.getValue(FoodModel::class.java)
-                        if (item != null) {
-                            foodList.add(item)
+                        val food = data.getValue(FoodModel::class.java)
+                        if (food != null) {
+                            foodList.add(food)
                         }
                     }
-                    adapter.notifyDataSetChanged()
+
+                    menuAdapter.notifyDataSetChanged()
                 }
 
-                override fun onCancelled(error: DatabaseError) {}
+                override fun onCancelled(error: DatabaseError) {
+                    // optional: log error
+                }
             })
     }
 
